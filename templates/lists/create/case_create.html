@@ -1,0 +1,24 @@
+{% extends 'lists/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <br>
+    <h1>リスト作成</h1>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <label class="form-label">{{ form.mitsumori_request_date.label }}</label>
+        {% render_field form.mitsumori_request_date class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.customer.label }}</label>
+        {% render_field form.customer class+="form-select w-25 mb-4" %}
+
+        <label class="form-label">{{ form.deadline.label }}</label>
+        {% render_field form.deadline class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.drawing_data.label }}</label>
+        {% render_field form.drawing_data class+="form-control w-25 mb-4" %}
+
+        <button type="submit" class="btn btn-primary">保存</button>
+    </form>
+    <br><br>
+{% endblock content %}

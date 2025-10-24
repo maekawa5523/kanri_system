@@ -1,0 +1,57 @@
+{% extends 'lists/base.html' %}
+{% block content %}
+    <p>
+      <a href={% url "update" object.id %}>編集</a>
+    </p>
+  <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">見積依頼日</th>
+            <th scope="col">ステータス</th>
+            <th scope="col">顧客名</th>
+            <th scope="col">外注先</th>
+            <th scope="col">納期</th>
+            <th scope="col">図番</th>
+            <th scope="col">図面データ</th>
+            <th scope="col">品名</th>
+            <th scope="col">材質</th>
+            <th scope="col">処理</th>
+            <th scope="col">数量</th>
+            <th scope="col">見積回答日</th>
+            <th scope="col">見積書No</th>
+            <th scope="col">受注日</th>
+            <th scope="col">【顧客】注文書No</th>
+            <th scope="col">【N4】注文書No</th>
+            <th scope="col">【原価】単価</th>
+            <th scope="col">【売値】単価</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ object.id }}</td>
+            <td>{{ object.mitsumori_request_date|date:"n/j" }}</td>
+            <td>{{ object.status }}</td>
+            <td>{{ object.customer }}</td>
+            <td>{{ object.contractor }}</td>
+            <td>{{ object.deadline|date:"n/j" }}</td>
+            <td>{{ object.drawing_num }}</td>
+            <td>{{ object.drawing_data }}</td>
+            <td>{{ object.product }}</td>
+            <td>{{ object.material }}</td>
+            <td>{{ object.surface }}</td>
+            <td>{{ object.volume }}</td>
+            <td>{{ object.mitsumori_answer_date|date:"n/j" }}</td>
+            <td>{{ object.mitsumori_num }}</td>
+            <td>{{ object.jutyu_date|date:"n/j" }}</td>
+            <td>{{ object.customer_tyumon_num }}</td>
+            <td>{{ object.netfour_tyumon_num }}</td>
+            <td>{{ object.cost_price }}</td>
+            <td>{{ object.selling_price }}</td>
+        </tr>
+    </tbody>
+  </table>
+    <p>
+      <a href={% url "delete" object.id %}>削除</a>
+    </p>
+{% endblock content %}

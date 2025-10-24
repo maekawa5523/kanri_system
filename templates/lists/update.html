@@ -1,0 +1,66 @@
+{% extends 'lists/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <br>
+    <h1>編集</h1>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+        <label class="form-label">{{ form.mitsumori_request_date.label }}</label>
+        {% render_field form.mitsumori_request_date class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.customer.label }}</label>
+        {% render_field form.customer class+="form-select w-25 mb-4" %}
+
+        <label class="form-label">{{ form.contractor.label }}</label>
+        {% render_field form.contractor class+="form-select w-25 mb-4" type="date" %}
+
+        <label class="form-label">{{ form.deadline.label }}</label>
+        {% render_field form.deadline class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.drawing_num.label }}</label>
+        {% render_field form.drawing_num class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.drawing_data.label }}</label>
+        {% render_field form.drawing_data class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.product.label }}</label>
+        {% render_field form.product class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.material.label }}</label>
+        {% render_field form.material class+="form-select w-25 mb-4" %}
+
+        <label class="form-label">{{ form.surface.label }}</label>
+        {% render_field form.surface class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.volume.label }}</label>
+        {% render_field form.volume class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.status.label }}</label>
+        {% render_field form.status class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.mitsumori_answer_date.label }}</label>
+        {% render_field form.mitsumori_answer_date class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.mitsumori_num.label }}</label>
+        {% render_field form.mitsumori_num class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.jutyu_date.label }}</label>
+        {% render_field form.jutyu_date class+="form-control w-25 mb-4" %}
+        
+        <label class="form-label">{{ form.customer_tyumon_num.label }}</label>
+        {% render_field form.customer_tyumon_num class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.netfour_tyumon_num.label }}</label>
+        {% render_field form.netfour_tyumon_num class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.cost_price.label }}</label>
+        {% render_field form.cost_price class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.selling_price.label }}</label>
+        {% render_field form.selling_price class+="form-control w-25 mb-4" %}
+
+        <button type="submit" class="btn btn-primary">保存</button>
+    </form>
+    <br><br>
+{% endblock content %}
