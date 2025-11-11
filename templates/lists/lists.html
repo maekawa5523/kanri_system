@@ -1,26 +1,58 @@
 {% extends 'lists/base.html' %}
+{% load mathfilters %}
 {% block content %}
-  <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">No</th>
-            <th scope="col">顧客名</th>
-            <th scope="col">依頼日</th>
-            <th scope="col">納期</th>
-            <th scope="col"><a href={% url "case_create" %}>新規作成</a></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for list in object_list %}
-            <tr>
-                <td>{{ list.id }}</td>
-                <td>{{ list.customer }}</td>
-                <td>{{ list.mitsumori_request_date }}</td>
-                <td>{{ list.deadline|date:"n/j" }}</td>
-                <td><a href={{ list.id }}>詳細</a></td>
-                <td><a href={% url "update" list.id %}>編集</a></td>
-            </tr>
-        {% endfor %}
-    </tbody>
-  </table>
+    <a href={% url "case_create" %}>新規作成</a>
+    <br>
+    {% for customer in object_list %}
+        {% if customer.case.count != 0 %}
+            {{ customer.name }}
+            <table class="table table-bordered border-primary">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>依頼日</th>
+                        <th>納期</th>
+                        <th>図番</th>
+                        <th>品名</th>
+                        <th>素材</th>
+                        <th>処理</th>
+                        <th>数量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for list in customer.case.all %}
+                        <tr>
+                            <td rowspan={{ list.product.all.count|addition:2 }}>{{ list.id }}</td>
+                            <td rowspan={{ list.product.all.count|addition:2 }}>{{ list.mitsumori_request_date|date:"n/j" }}</td>
+                            <td rowspan={{ list.product.all.count|addition:2 }}>{{ list.deadline|date:"n/j" }}</td>
+                        </tr>
+                        {% for product in list.product.all %}
+                            <tr>
+                                <td>{{ product.drawing_num }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.material }}</td>                      
+                                <td>{{ product.surface }}</td>                      
+                                <td>{{ product.volume }}</td>
+                                <td>
+                                    <a href={% url "product_update" product.id %}>編集</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a href={% url "case_update" list.id %}>案件編集</a><br>
+                                <a href={% url "product_create" list.id %}>製品追加</a><br>
+                                <a href={% url "product_create" list.id %}>見積依頼追加</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endfor %}
 {% endblock content %}

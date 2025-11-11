@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Lists.apps.ListsConfig',
     'django_bootstrap5',
     'widget_tweaks',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,31 @@
+{% extends 'lists/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <br>
+    <h1>顧客情報作成</h1>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label class="form-label">{{ form.name.label }}</label>
+        {% render_field form.name class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.address.label }}</label>
+        {% render_field form.address class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.tel.label }}</label>
+        {% render_field form.tel class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.tanto.label }}</label>
+        {% render_field form.tanto class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.mail.label }}</label>
+        {% render_field form.mail class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.phone.label }}</label>
+        {% render_field form.phone class+="form-control w-25 mb-4" %}
+
+        <button type="submit" class="btn btn-primary">保存</button>
+    </form>
+    <br><br>
+{% endblock content %}

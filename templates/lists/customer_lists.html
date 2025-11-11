@@ -1,0 +1,30 @@
+{% extends 'lists/base.html' %}
+{% load mathfilters %}
+{% block content %}
+  <table class="table">
+    <thead>
+        <tr>
+            <th scope="col"><a href={% url "customer_create" %}>顧客追加</a></th>
+            <th scope="col">顧客名</th>
+            <th scope="col">住所</th>
+            <th scope="col">電話</th>
+            <th scope="col">担当者</th>
+            <th scope="col">メール</th>
+            <th scope="col">携帯</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for list in object_list %}
+            <tr>
+                <td><a href={% url "customer_update" list.id %}>編集</a></td>
+                <td>{{ list.name }}</td>
+                <td>{{ list.address }}</td>
+                <td>{{ list.tel }}</td>
+                <td>{{ list.tanto }}</td>
+                <td>{{ list.mail }}</td>
+                <td>{{ list.phone }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

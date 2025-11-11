@@ -1,0 +1,47 @@
+{% extends 'lists/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <br>
+    <h1>外注先作成</h1>
+    <br>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label class="form-label">{{ form.name.label }}</label>
+        {% render_field form.name class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.address.label }}</label>
+        {% render_field form.address class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.tel.label }}</label>
+        {% render_field form.tel class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.tanto.label }}</label>
+        {% render_field form.tanto class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.mail.label }}</label>
+        {% render_field form.mail class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.phone.label }}</label>
+        {% render_field form.phone class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.quality.label }}</label>
+        {% render_field form.quality class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.sheet.label }}</label>
+        {% render_field form.sheet class+="form-check-input" %}
+
+        <label class="form-label">{{ form.cut.label }}</label>
+        {% render_field form.cut class+="form-check-input" %}
+
+        <label class="form-label">{{ form.can.label }}</label>
+        {% render_field form.can class+="form-check-input" %}
+
+        <label class="form-label">{{ form.coat.label }}</label>
+        {% render_field form.coat class+="form-check-input" %}
+        <p>
+            <button type="submit" class="btn btn-primary">保存</button>
+        </p>
+    </form>
+    <br><br>
+{% endblock content %}

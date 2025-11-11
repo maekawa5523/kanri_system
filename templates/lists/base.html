@@ -20,8 +20,8 @@
             <div class="navbar-nav">
               <a class="nav-link" href={% url 'lists' %}>受注管理</a>
               <a class="nav-link" href="#">サマリー</a>
-              <a class="nav-link" href="#">顧客情報</a>
-              <a class="nav-link" href="#">外注先情報</a>
+              <a class="nav-link" href={% url 'customer_lists' %}>顧客情報</a>
+              <a class="nav-link" href={% url 'contractor_lists' %}>外注先情報</a>
             </div>
           </div>
         </div>
