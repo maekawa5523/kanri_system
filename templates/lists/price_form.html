@@ -1,0 +1,22 @@
+{% extends 'lists/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <br>
+    <h1>単価追加</h1>
+    <br>
+    {{products.0.id}}
+    <form method="POST">
+        {% csrf_token %}
+            {% for form in formset %}
+                外注ID:{{ gaityu.id }}<br>
+                商品ID:{{ products }}<br>
+                カウンター:{{ forloop.counter0 }}<br>
+                {% render_field form.gaityu value=gaityu.id %}
+                {% render_field form.product value=product.id %}
+                <label class="form-label">{{ form.price.label }}</label>
+                {% render_field form.price class+="form-control w-25 mb-4" %}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">保存</button>
+    </form>
+    <br><br>
+{% endblock content %}

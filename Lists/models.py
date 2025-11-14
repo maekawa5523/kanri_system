@@ -21,7 +21,7 @@ class Customers(models.Model):
 # #Lists
 class Cases(models.Model):
     #顧客名
-    customer = models.ForeignKey(Customers, on_delete=models.PROTECT, related_name='case')
+    customer = models.ForeignKey(Customers, on_delete=models.CASCADE, related_name='cases', blank=True, null=True)
     #見積依頼日
     mitsumori_request_date = models.DateField()
     #納期
@@ -67,7 +67,7 @@ class Contractors(models.Model):
 # #products
 class Products(models.Model):
     #ID
-    num = models.ForeignKey(Cases, on_delete=models.PROTECT, related_name='product')
+    case = models.ForeignKey(Cases, on_delete=models.CASCADE, related_name='products', blank=True, null=True)
     #品名
     name = models.CharField(blank=True, null=True)
     #図番
@@ -91,7 +91,19 @@ class Products(models.Model):
     surface = models.CharField(blank=True, null=True)
     #数量
     volume = models.CharField(blank=True, null=True)
-    #外注先単価
-    contractor_price = models.ForeignKey(Contractors, on_delete=models.PROTECT, related_name='price', blank=True, null=True)
     #確定単価
     agree_price = models.IntegerField(blank=True, null=True)
+
+class Gaityus(models.Model):
+    #caseID
+    case = models.ForeignKey(Cases, on_delete=models.CASCADE, related_name="gaityus", blank=True, null=True)
+    #企業ID
+    contractor = models.ForeignKey(Contractors, on_delete=models.CASCADE, related_name="gaityus", blank=True, null=True)
+
+class Prices(models.Model):
+    #製品ID
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name="prices", blank=True, null=True)
+    #外注先ID
+    gaityu = models.ForeignKey(Gaityus, on_delete=models.CASCADE, related_name="prices", blank=True, null=True)
+    #単価
+    price = models.CharField(blank=True, null=True)

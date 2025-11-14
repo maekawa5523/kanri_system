@@ -4,11 +4,14 @@
     <br>
     <h1>データ追加</h1>
     <p>ID:{{ case.id }}</p>
-    <p>顧客{{ case.customer }}</p>
-    <br>
+    <p>顧客{{ case.customer_id }}</p>
     <form method="POST">
         {% csrf_token %}
-        {% render_field form.num value=case.id class+="form-control w-25 mb-4" %}
+        {% if page == "CREATE" %}
+            {% render_field form.case value=case.id class+="form-control w-25 mb-4" %}
+        {% else %}
+            {% render_field form.case value=form.case class+="form-control w-25 mb-4" %}
+        {% endif %}
 
         <label class="form-label">{{ form.drawing_num.label }}</label>
         {% render_field form.drawing_num class+="form-control w-25 mb-4" %}

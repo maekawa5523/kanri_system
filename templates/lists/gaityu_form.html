@@ -1,0 +1,17 @@
+{% extends 'lists/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <br>
+    <h1>外注先追加</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {% render_field form.case value=case.id class+="form-control w-25 mb-4" %}
+
+        <label class="form-label">{{ form.contractor.label }}</label>
+        {% render_field form.contractor class+="form-control w-25 mb-4" %}
+
+        <button type="submit" class="btn btn-primary">保存</button>
+    </form>
+    <br><br>
+{% endblock content %}

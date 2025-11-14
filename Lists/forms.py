@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cases, Products, Customers, Contractors
+from .models import Cases, Products, Customers, Contractors, Prices, Gaityus
  
 class CaseForm(forms.ModelForm):
     class Meta:
@@ -81,7 +81,7 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Products
         fields = (
-            'num',
+            'case',
             'name',
             'drawing_num',
             'material',
@@ -96,5 +96,38 @@ class ProductForm(forms.ModelForm):
             'volume':'数量',
         }
         widgets = {
-            'num':forms.HiddenInput,
+            'case':forms.HiddenInput,
+        }
+
+class PriceForm(forms.ModelForm):
+    class Meta:
+        model = Prices 
+        fields = (
+            'product',
+            'gaityu',
+            'price',
+        )
+        labels = {
+            'product':'製品ID',
+            'gaityu':'外注先ID',
+            'price':'単価',
+        }
+        widgets = {
+            # 'product':forms.HiddenInput,
+            # 'gaityu':forms.HiddenInput,
+        }
+
+class GaityuForm(forms.ModelForm):
+    class Meta:
+        model =  Gaityus
+        fields = (
+            'case',
+            'contractor',
+        )
+        labels = {
+            'case':'案件ID',
+            'contractor':'外注先',
+        }
+        widgets = {
+            'case':forms.HiddenInput,
         }

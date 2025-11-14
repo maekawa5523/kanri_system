@@ -4,29 +4,43 @@
     <a href={% url "case_create" %}>新規作成</a>
     <br>
     {% for customer in object_list %}
-        {% if customer.case.count != 0 %}
+        {% if customer.cases.count != 0 %}
             {{ customer.name }}
             <table class="table table-bordered border-primary">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>依頼日</th>
-                        <th>納期</th>
-                        <th>図番</th>
-                        <th>品名</th>
-                        <th>素材</th>
-                        <th>処理</th>
-                        <th>数量</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for list in customer.case.all %}
+                {% for list in customer.cases.all %}
+                    <thead>
                         <tr>
-                            <td rowspan={{ list.product.all.count|addition:2 }}>{{ list.id }}</td>
-                            <td rowspan={{ list.product.all.count|addition:2 }}>{{ list.mitsumori_request_date|date:"n/j" }}</td>
-                            <td rowspan={{ list.product.all.count|addition:2 }}>{{ list.deadline|date:"n/j" }}</td>
+                            <th>
+                                No
+                                <a href={% url "case_update" list.id %}>案件編集</a><br>
+                            </th>
+                            <th>依頼日</th>
+                            <th>納期</th>
+                            <th>図番</th>
+                            <th>品名</th>
+                            <th>素材</th>
+                            <th>処理</th>
+                            <th>数量</th>
+                            {% if list.products.count != 0 %}
+                                <th><a href={% url "gaityu_create" list.id %}>見積依頼追加</a></th>
+                            {% else %}
+                                <th><a href={% url "product_create" list.id %}>製品追加</a></th>
+                            {% endif %}
+                            {% for gaityu in list.gaityus.all %}
+                                <th>
+                                    {{ gaityu.contractor|cut:"株式会社" }}
+                                    <a href={% url "price_create" gaityu.case.id gaityu.id %}>単価追加</a><br>
+                                </th>
+                            {% endfor %}
                         </tr>
-                        {% for product in list.product.all %}
+                    </thead>
+                <tbody>
+                        <tr>
+                            <td rowspan={{ list.products.all.count|addition:2 }}>{{ list.id }}</td>
+                            <td rowspan={{ list.products.all.count|addition:2 }}>{{ list.mitsumori_request_date|date:"n/j" }}</td>
+                            <td rowspan={{ list.products.all.count|addition:2 }}>{{ list.deadline|date:"n/j" }}</td>
+                        </tr>
+                        {% for product in list.products.all %}
                             <tr>
                                 <td>{{ product.drawing_num }}</td>
                                 <td>{{ product.name }}</td>
@@ -35,21 +49,21 @@
                                 <td>{{ product.volume }}</td>
                                 <td>
                                     <a href={% url "product_update" product.id %}>編集</a>
+                                    {% if forloop.last %}
+                                        <a href={% url "product_create" list.id %}>製品追加</a>
+                                    {% endif %}
                                 </td>
+                                {% for gaityu in list.gaityus.all %}
+                                    <td>
+                                        {% for price in product.prices.all %}
+                                            {% if gaityu.id == price.gaityu.id and price.product.id == product.id %}
+                                                {{ price.price }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                {% endfor %}
                             </tr>
                         {% endfor %}
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <a href={% url "case_update" list.id %}>案件編集</a><br>
-                                <a href={% url "product_create" list.id %}>製品追加</a><br>
-                                <a href={% url "product_create" list.id %}>見積依頼追加</a>
-                            </td>
-                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
